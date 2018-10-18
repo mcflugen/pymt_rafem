@@ -1,33 +1,37 @@
 #! /usr/bin/env python
-import os, sys
-
-from setuptools import setup, find_packages
-
-# from Cython.Build import cythonize
-from distutils.extension import Extension
-import numpy as np
+import os
+import sys
 import versioneer
+from setuptools import find_packages, setup
 
-from model_metadata.utils import get_cmdclass, get_entry_points
+from distutils.extension import Extension
+
+try:
+    import model_metadata
+except ImportError:
+    def get_cmdclass(*args, **kwds):
+        return kwds.get("cmdclass", None)
+    def get_entry_points(*args):
+        return None
+else:
+    from model_metadata.utils import get_cmdclass, get_entry_points
 
 
-ext_modules = None
-packages = None
 
+
+packages = find_packages()
 pymt_components = [
     (
-        "Rafem=rafem:BmiRiverModule",
-        "meta",
-    )
+        "Rafem=pymt_rafem.bmi:Rafem",
+        "meta/Rafem",
+    ),
 ]
 
 setup(
     name="pymt_rafem",
     author="Eric Hutton",
-    description="Python interface to rafem",
+    description="PyMT plugin rafem",
     version=versioneer.get_version(),
-    setup_requires=["cython"],
-    ext_modules=ext_modules,
     packages=packages,
     cmdclass=get_cmdclass(pymt_components, cmdclass=versioneer.get_cmdclass()),
     entry_points=get_entry_points(pymt_components),

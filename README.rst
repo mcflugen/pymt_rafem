@@ -1,35 +1,78 @@
-=====
-rafem
-=====
+==========
+pymt_rafem
+==========
 
 
-.. image:: https://img.shields.io/pypi/v/rafem.svg
-        :target: https://pypi.python.org/pypi/rafem
+.. image:: https://img.shields.io/badge/CSDMS-Basic%20Model%20Interface-green.svg
+        :target: https://bmi-forum.readthedocs.io/
+        :alt: Basic Model Interface
 
-.. image:: https://img.shields.io/travis/mcflugen/rafem.svg
-        :target: https://travis-ci.org/mcflugen/rafem
+.. image:: https://img.shields.io/badge/recipe-pymt_rafem-green.svg
+        :target: https://anaconda.org/conda-forge/pymt_rafem
 
-.. image:: https://readthedocs.org/projects/rafem/badge/?version=latest
-        :target: https://rafem.readthedocs.io/en/latest/?badge=latest
+.. image:: https://img.shields.io/travis/mcflugen/pymt_rafem.svg
+        :target: https://travis-ci.org/mcflugen/pymt_rafem
+
+.. image:: https://readthedocs.org/projects/pymt_rafem/badge/?version=latest
+        :target: https://pymt_rafem.readthedocs.io/en/latest/?badge=latest
         :alt: Documentation Status
 
+.. image:: https://img.shields.io/badge/code%20style-black-000000.svg
+        :target: https://github.com/csdms/pymt
+        :alt: Code style: black
 
-Python BMI for rafem
+
+PyMT plugin for Rafem
 
 
 * Free software: MIT license
 * Documentation: https://rafem.readthedocs.io.
 
 
-Features
---------
+---------------
+Installing pymt
+---------------
 
-* TODO
+Installing `pymt` from the `conda-forge` channel can be achieved by adding
+`conda-forge` to your channels with:
 
-Credits
--------
+.. code::
 
-This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypackage`_ project template.
+  conda config --add channels conda-forge
 
-.. _Cookiecutter: https://github.com/audreyr/cookiecutter
-.. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
+*Note*: Before installing `pymt`, you may want to create a separate environment
+into which to install it. This can be done with,
+
+.. code::
+
+  conda create -n pymt python=3.6
+  conda activate pymt
+
+Once the `conda-forge` channel has been enabled, `pymt` can be installed with:
+
+.. code::
+
+  conda install pymt
+
+It is possible to list all of the versions of `pymt` available on your platform with:
+
+.. code::
+
+  conda search pymt --channel conda-forge
+
+---------------------
+Installing pymt_rafem
+---------------------
+
+Once `pymt` is installed, the dependencies of `pymt_rafem` can
+be installed with:
+
+.. code::
+
+  conda install rafem
+
+To install `pymt_rafem`,
+
+.. code::
+
+  conda install pymt_rafem

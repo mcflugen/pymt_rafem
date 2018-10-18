@@ -1,42 +1,41 @@
-{% set name = "pymt_rafem" %}
-{% set version = "0.1" %}
-{% set build = "0" %}
+{% set data = load_setup_py_data() %}
 
 package:
-  name: {{ name }}
-  version: {{ version }}
+  name: "pymt_rafem"
+  version: {{ data.get('version') }}
 
 source:
   path: ..
 
 build:
-  number: {{ build }}
-  script: python -m pip install --no-deps --ignore-installed .
+  number: 0
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv"
 
 requirements:
+  build:
+    - {{ compiler('c') }}
   host:
     - python
-    - setuptools
-    - numpy 1.11.*
+    - pip
     - cython
+    - numpy 1.11.*
     - model_metadata
-    - rafem
+    - rafem 
 
   run:
     - python
-    - setuptools
-    - pymt
-    - rafem
+    - {{ pin_compatible('numpy') }}
+    - rafem 
 
 test:
   requires:
     - bmi-tester
+    - model_metadata
   imports:
-    - pymt
-    - rafem
+    - pymt_rafem
   commands:
-    - mmd-stage Rafem .
-    - bmi-test rafem:Rafem --infile=rafem.txt
+    - config_file=$(mmd-stage BmiRiverModule . > MANIFEST && mmd-query BmiRiverModule --var=run.config_file.path)
+    - bmi-test pymt_rafem.bmi:BmiRiverModule --infile=$config_file --manifest=MANIFEST -v
 
 about:
   summary: Python package that wraps the rafem BMI.

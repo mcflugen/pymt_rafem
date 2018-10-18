@@ -1,4 +1,10 @@
-from .rafem import Rafem
+#! /usr/bin/env python
+
+from .bmi import (Rafem,
+)
+
+__all__ = ["Rafem",
+]
 
 from ._version import get_versions
 __version__ = get_versions()['version']
