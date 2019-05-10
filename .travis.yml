@@ -1,16 +1,25 @@
 language: generic
 os:
-- osx
 - linux
+- osx
 env:
   matrix:
-  - TRAVIS_PYTHON_VERSION="2.7"
-  - TRAVIS_PYTHON_VERSION="3.6"
-  - TRAVIS_PYTHON_VERSION="3.7"
-  global:
-  - CONDA_PREFIX=$HOME/miniconda
-  - MINICONDA_URL_BASE="https://repo.continuum.io/miniconda/Miniconda3-latest"
+  - CONDA_ENV=3.7
+  - CONDA_ENV=3.6
 sudo: false
+jobs:
+  include:
+  - stage: deploy
+    if: tag =~ v.*$
+    script: skip
+    os: linux
+    deploy:
+      on:
+        all_branches: true
+      provider: pypi
+      user: mcflugen
+      password:
+        secure: LG2bKxohg/kEOxLzFtAhCGMo8US9nIWBOXSGiCDR1zXA+JGv6QsrBy6xKKaNTF9Nb2fOkWJQQZfQNCz+V6P3f3MrqfLNRayfVjt+SmMhPIDfNeeMn1ZPDCcif+ugRqINyJk2c+dbwgqluRteqDMeoKW1PKrLzvpMWBn3V8+z9FQJ6PvlkyynoZAE1RCY/1YGjpo50xhPd5g0ucgeLbGnrvvxtZDvu/BmE/YJ3RAYFU5uK3BQLOBStWd35zi3gou4sf321c9cMLdwLVqs+fTeoElbsLADptGKYrVKwAeDgp22bGeBgpLaps/w0dcwpY2Cgnj/1fT3qx0kwU30Yu5V9BCSjdpvxjDYjm+4pKwXN+inbV68XqXcMxQ1s4B7RRkikdsJod03ruFylL+MvoVR7mfqTEd5d5TT83sgtKv7qX/1pUxk2Y+VtgItMqjhZz6PK0nB4APbLfgy+OmCwPdGaD2d0flL2t8T7XEKVGsu2sLgYOPaWzoPuBEsujDh3s6VeNtti8BiWflezEPj7SNCsqCfFZN6RnNHv6hoZEVQ79TsAdrjyPJTCZtXqLL9Yfflu5ZNojF8Mf8krp1QioASGgnNYTkB8Xsn6S9tV5vHf7lGNWbGlIxlWH5XLqkmBITY7UoGUOYaI7fhk9n7sxZ2tsVGKdH66fpqW9f/oSrdwp8=
 before_install:
 - |
   if [[ $TRAVIS_OS_NAME == "osx" ]]; then
@@ -18,26 +27,22 @@ before_install:
     brew cleanup -s
     rm -rf $(brew --cache)
   fi
-install:
 - |
   if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-    OS="MacOSX-x86_64"
+    curl https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh > $HOME/miniconda.sh
   else
-    OS="Linux-x86_64"
+    curl https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh > $HOME/miniconda.sh
   fi
-- curl $MINICONDA_URL_BASE-$OS.sh > $HOME/minconda.sh
-- bash $HOME/minconda.sh -b -p $CONDA_PREFIX
-- export PATH="$CONDA_PREFIX/bin:$PATH"
+- bash $HOME/miniconda.sh -b -p $HOME/anaconda
+- export PATH="$HOME/anaconda/bin:$PATH"
 - hash -r
 - conda config --set always_yes yes --set changeps1 no
-- conda config --add channels conda-forge
-- conda create -n _testing python=$TRAVIS_PYTHON_VERSION
-- source activate _testing
-- conda install -q conda-build anaconda-client
-- conda install -q --file=requirements.txt
-- conda install -q bmi-tester model_metadata
+- conda create -n test_env python=$CONDA_ENV
+- source activate test_env
+install:
+- pip install . -r requirements.txt
+- pip install bmi-tester model_metadata
 script:
-- python setup.py develop
 - python -c 'import pymt_rafem'
 - |
   config_file=$(mmd-stage Rafem . > MANIFEST && mmd-query Rafem --var=run.config_file.path)

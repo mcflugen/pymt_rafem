@@ -32,6 +32,7 @@ setup(
     author="Eric Hutton",
     description="PyMT plugin rafem",
     version=versioneer.get_version(),
+    install_requires=["rafem"],
     packages=packages,
     cmdclass=get_cmdclass(pymt_components, cmdclass=versioneer.get_cmdclass()),
     entry_points=get_entry_points(pymt_components),
