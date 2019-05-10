@@ -46,4 +46,4 @@ script:
 - python -c 'import pymt_rafem'
 - |
   config_file=$(mmd-stage Rafem . > MANIFEST && mmd-query Rafem --var=run.config_file.path)
-  bmi-test pymt_rafem.bmi:Rafem --infile=$config_file --manifest=MANIFEST -v
+  bmi-test pymt_rafem.bmi:Rafem --config-file=$config_file --manifest=MANIFEST -v
