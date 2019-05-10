@@ -41,7 +41,7 @@ before_install:
 - source activate test_env
 install:
 - pip install . -r requirements.txt
-- pip install bmi-tester model_metadata
+- pip install bmi-tester model_metadata standard_names pytest
 script:
 - python -c 'import pymt_rafem'
 - |
