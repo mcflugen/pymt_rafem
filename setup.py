@@ -15,6 +15,7 @@ pymt_components = [
     ),
 ]
 
+
 setup(
     name="pymt_rafem",
     author="Eric Hutton",
@@ -33,6 +34,7 @@ setup(
     long_description=open("README.rst").read(),
     install_requires=["rafem"],
     packages=packages,
-    cmdclass=get_cmdclass(pymt_components, cmdclass=versioneer.get_cmdclass()),
+    cmdclass=versioneer.get_cmdclass(),
     entry_points=get_entry_points(pymt_components),
+    include_package_data=True,
 )
