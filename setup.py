@@ -4,16 +4,9 @@ import sys
 import versioneer
 from setuptools import find_packages, setup
 
-from model_metadata.utils import get_cmdclass, get_entry_points
-
 
 packages = find_packages()
-pymt_components = [
-    (
-        "Rafem=pymt_rafem.bmi:Rafem",
-        "meta/Rafem",
-    ),
-]
+entry_points = {"pymt.plugins": ["Rafem=pymt_rafem.bmi:Rafem"]}
 
 
 setup(
@@ -35,6 +28,6 @@ setup(
     install_requires=["rafem"],
     packages=packages,
     cmdclass=versioneer.get_cmdclass(),
-    entry_points=get_entry_points(pymt_components),
+    entry_points=entry_points,
     include_package_data=True,
 )
