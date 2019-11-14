@@ -63,6 +63,16 @@ time_step:
       max: 1.0
     units: day
 
+random_seed:
+  description: Random random seed
+  value:
+    type: int
+    default: 1988
+    range:
+      min: 0
+      max: 999999999
+    units: '-'
+
 sea_level_initial:
   description: Initial sea level
   value:
@@ -141,6 +151,16 @@ sediment_specific_gravity:
     range:
       min: 0.0
       max: 100.0
+    units: '-'
+
+superelevation_ratio:
+  description: Critical superelevation ratio
+  value:
+    type: float
+    default: 1.0
+    range:
+      min: 0.0001
+      max: 10.0
     units: '-'
 
 wetland_elevation:
