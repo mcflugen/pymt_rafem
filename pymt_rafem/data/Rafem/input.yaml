@@ -13,7 +13,7 @@ max_rand: 0.1  # multiply by slope for max height of a random perturbation
 dt_day: {{ time_step }}  # timestep (days)
 
 # Random seed
-rand_seed: 1988  # seed for random number generator
+rand_seed: {{ random_seed }}  # seed for random number generator
 
 # Sea level and subsidence parameters
 Initial_SL: {{ sea_level_initial }}  # initial sea level
@@ -32,7 +32,7 @@ sed_sg: {{ sediment_specific_gravity }}  # sediment specific gravity
 init_cut_frac: 1  # initial cut of the channel into land surface
 
 # Avulsion parameters
-super_ratio: 1.0  # normalized SE ratio to trigger avulsion
+super_ratio: {{ superelevation_ratio }}  # normalized SE ratio to trigger avulsion
 short_path: 1  # flag for using shortest path to complete avulsion
 
 # Floodplain and Wetland parameters
