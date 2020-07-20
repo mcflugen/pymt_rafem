@@ -9,6 +9,7 @@ undef_macros = []
 [info]
 github_username = "pymt-lab"
 plugin_author = "csdms"
+plugin_author_email = "csdms@colorado.edu"
 plugin_license = "MIT"
 summary = "PyMT plugin for Rafem"
 

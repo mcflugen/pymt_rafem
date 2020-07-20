@@ -9,6 +9,7 @@ entry_points = {"pymt.plugins": ["Rafem=pymt_rafem.bmi:Rafem",]}
 setup(
     name="pymt_rafem",
     author="csdms",
+    author_email="csdms@colorado.edu",
     description="PyMT plugin for rafem",
     long_description=open("README.rst", encoding="utf-8").read(),
     version="0.1",
