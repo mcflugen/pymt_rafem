@@ -4,14 +4,14 @@ pymt_rafem
 
 
 .. image:: https://img.shields.io/badge/CSDMS-Basic%20Model%20Interface-green.svg
-        :target: https://bmi-forum.readthedocs.io/
+        :target: https://bmi.readthedocs.io/
         :alt: Basic Model Interface
 
 .. image:: https://img.shields.io/badge/recipe-pymt_rafem-green.svg
         :target: https://anaconda.org/conda-forge/pymt_rafem
 
-.. image:: https://img.shields.io/travis/mcflugen/pymt_rafem.svg
-        :target: https://travis-ci.org/mcflugen/pymt_rafem
+.. image:: https://img.shields.io/travis/pymt-lab/pymt_rafem.svg
+        :target: https://travis-ci.org/pymt-lab/pymt_rafem
 
 .. image:: https://readthedocs.org/projects/pymt_rafem/badge/?version=latest
         :target: https://pymt_rafem.readthedocs.io/en/latest/?badge=latest
@@ -25,9 +25,17 @@ pymt_rafem
 PyMT plugin for Rafem
 
 
-* Free software: MIT license
+* Free software: MIT License
 * Documentation: https://rafem.readthedocs.io.
 
+
+
+
+========= ===================================
+Component PyMT
+========= ===================================
+Rafem     `from pymt.models import Rafem`
+========= ===================================
 
 ---------------
 Installing pymt
@@ -45,7 +53,7 @@ into which to install it. This can be done with,
 
 .. code::
 
-  conda create -n pymt python=3.6
+  conda create -n pymt python=3
   conda activate pymt
 
 Once the `conda-forge` channel has been enabled, `pymt` can be installed with:

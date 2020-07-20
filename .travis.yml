@@ -1,25 +1,15 @@
 language: generic
 os:
-- linux
 - osx
+- linux
 env:
   matrix:
-  - CONDA_ENV=3.7
-  - CONDA_ENV=3.6
+  - PYTHON="3.6"
+  - PYTHON="3.7"
+  - PYTHON="3.8"
+  global:
+  - CONDA_PREFIX=$HOME/miniconda
 sudo: false
-jobs:
-  include:
-  - stage: deploy
-    if: tag =~ v.*$
-    script: skip
-    os: linux
-    deploy:
-      on:
-        all_branches: true
-      provider: pypi
-      user: mcflugen
-      password:
-        secure: LG2bKxohg/kEOxLzFtAhCGMo8US9nIWBOXSGiCDR1zXA+JGv6QsrBy6xKKaNTF9Nb2fOkWJQQZfQNCz+V6P3f3MrqfLNRayfVjt+SmMhPIDfNeeMn1ZPDCcif+ugRqINyJk2c+dbwgqluRteqDMeoKW1PKrLzvpMWBn3V8+z9FQJ6PvlkyynoZAE1RCY/1YGjpo50xhPd5g0ucgeLbGnrvvxtZDvu/BmE/YJ3RAYFU5uK3BQLOBStWd35zi3gou4sf321c9cMLdwLVqs+fTeoElbsLADptGKYrVKwAeDgp22bGeBgpLaps/w0dcwpY2Cgnj/1fT3qx0kwU30Yu5V9BCSjdpvxjDYjm+4pKwXN+inbV68XqXcMxQ1s4B7RRkikdsJod03ruFylL+MvoVR7mfqTEd5d5TT83sgtKv7qX/1pUxk2Y+VtgItMqjhZz6PK0nB4APbLfgy+OmCwPdGaD2d0flL2t8T7XEKVGsu2sLgYOPaWzoPuBEsujDh3s6VeNtti8BiWflezEPj7SNCsqCfFZN6RnNHv6hoZEVQ79TsAdrjyPJTCZtXqLL9Yfflu5ZNojF8Mf8krp1QioASGgnNYTkB8Xsn6S9tV5vHf7lGNWbGlIxlWH5XLqkmBITY7UoGUOYaI7fhk9n7sxZ2tsVGKdH66fpqW9f/oSrdwp8=
 before_install:
 - |
   if [[ $TRAVIS_OS_NAME == "osx" ]]; then
@@ -29,21 +19,28 @@ before_install:
   fi
 - |
   if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-    curl https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh > $HOME/miniconda.sh
+    OS="MacOSX-x86_64"
   else
-    curl https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh > $HOME/miniconda.sh
+    OS="Linux-x86_64"
   fi
-- bash $HOME/miniconda.sh -b -p $HOME/anaconda
-- export PATH="$HOME/anaconda/bin:$PATH"
+- |
+  if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+    curl https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh > $HOME/miniconda.sh
+  else
+    curl https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh > $HOME/miniconda.sh
+  fi
+- bash $HOME/miniconda.sh -b -p $(pwd)/anaconda
+- export PATH="$(pwd)/anaconda/bin:$PATH"
 - hash -r
 - conda config --set always_yes yes --set changeps1 no
-- conda create -n test_env python=$CONDA_ENV
-- source activate test_env
+- conda config --add channels conda-forge
+- conda create -n _testing python=$PYTHON
+- source activate _testing
+- conda info -a && conda list
 install:
-- pip install bmi-tester model_metadata standard_names pytest
-- pip install . -r requirements.txt
+- conda install -q --file=requirements.txt
+- pip install .
 script:
+- conda install -q --file=requirements-testing.txt
 - python -c 'import pymt_rafem'
-- |
-  config_file=$(mmd-stage pymt_rafem/data/Rafem . > MANIFEST && mmd-query pymt_rafem/data/Rafem --var=run.config_file.path)
-  bmi-test pymt_rafem.bmi:Rafem --config-file=$config_file --manifest=MANIFEST --root-dir=. -v
+- bmi-test pymt_rafem.bmi:Rafem -vvv

@@ -1,33 +1,30 @@
 #! /usr/bin/env python
 import os
 import sys
-import versioneer
-from setuptools import find_packages, setup
 
+from setuptools import Extension, find_packages, setup
 
-packages = find_packages()
-entry_points = {"pymt.plugins": ["Rafem=pymt_rafem.bmi:Rafem"]}
-
+entry_points = {"pymt.plugins": ["Rafem=pymt_rafem.bmi:Rafem",]}
 
 setup(
     name="pymt_rafem",
-    author="Eric Hutton",
-    description="PyMT plugin rafem",
+    author="csdms",
+    description="PyMT plugin for rafem",
+    long_description=open("README.rst", encoding="utf-8").read(),
+    version="0.1",
+    url="https://github.com/pymt-lab/pymt_rafem",
     classifiers=[
+        "Development Status :: 4 - Beta",
         "Intended Audience :: Science/Research",
         "License :: OSI Approved :: MIT License",
-        "Operating System :: OS Independent",
-        "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.6",
-        "Programming Language :: Python :: 3.7",
-        "Programming Language :: Python :: Implementation :: CPython",
-        "Topic :: Scientific/Engineering :: Physics",
+        "Operating System :: MacOS :: MacOS X",
+        "Operating System :: POSIX :: Linux",
+        "Programming Language :: Python :: 3 :: Only",
+        "Programming Language :: Python :: 3.8",
     ],
-    version=versioneer.get_version(),
-    long_description=open("README.rst").read(),
-    install_requires=["rafem"],
-    packages=packages,
-    cmdclass=versioneer.get_cmdclass(),
+    keywords=["bmi", "pymt"],
+    install_requires=open("requirements.txt", "r").read().splitlines(),
+    packages=find_packages(),
     entry_points=entry_points,
     include_package_data=True,
 )
