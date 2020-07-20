@@ -1,8 +1,8 @@
 Changelog for pymt_rafem
 ========================
 
-0.2.0 (unreleased)
--------------------
+0.2 (unreleased)
+----------------
 
 - Added rand_seed to parameters file.
 
