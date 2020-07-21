@@ -12,7 +12,7 @@ setup(
     author_email="csdms@colorado.edu",
     description="PyMT plugin for rafem",
     long_description=open("README.rst", encoding="utf-8").read(),
-    version="0.2",
+    version="0.3.dev0",
     url="https://github.com/pymt-lab/pymt_rafem",
     classifiers=[
         "Development Status :: 4 - Beta",
