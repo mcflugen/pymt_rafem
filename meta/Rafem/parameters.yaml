@@ -63,6 +63,16 @@ time_step:
       max: 1.0
     units: day
 
+rand_seed:
+  description: Seed for random number generator
+  value:
+    type: int
+    default: 1988
+    range:
+      min: 1
+      max: 65536
+    units: '-'
+
 sea_level_initial:
   description: Initial sea level
   value:

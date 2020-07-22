@@ -1,5 +1,13 @@
-include versioneer.py
-include _version.py
-include pymt_rafem/_version.py
-recursive-include pymt_rafem/data/ *
+recursive-include pymt_rafem/data *
 include LICENSE
+include requirements.txt
+include *.rst
+include *.txt
+include Makefile
+include babel.toml
+include pymt_rafem/data
+recursive-include docs *.py
+recursive-include docs *.rst
+recursive-include docs Makefile
+recursive-exclude meta *
+recursive-exclude recipe *

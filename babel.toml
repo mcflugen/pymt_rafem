@@ -1,0 +1,23 @@
+[build]
+define_macros = []
+extra_compile_args = []
+include_dirs = []
+libraries = []
+library_dirs = []
+undef_macros = []
+
+[info]
+github_username = "pymt-lab"
+plugin_author = "csdms"
+plugin_author_email = "csdms@colorado.edu"
+plugin_license = "MIT"
+summary = "PyMT plugin for Rafem"
+
+[library]
+entry_point = ["Rafem=rafem:BmiRiverModule"]
+language = "python"
+
+[plugin]
+name = "rafem"
+requirements = ["rafem"]
+
