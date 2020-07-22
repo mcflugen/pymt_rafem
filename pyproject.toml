@@ -25,3 +25,9 @@ include_trailing_comma = true
 force_grid_wrap = 0
 combine_as_imports = true
 line_length = 88
+
+[tool.check-manifest]
+ignore = [
+  "pymt_rafem/data",
+  "pymt_rafem/data/**/*",
+]

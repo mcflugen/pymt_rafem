@@ -6,13 +6,24 @@ from setuptools import Extension, find_packages, setup
 
 entry_points = {"pymt.plugins": ["Rafem=pymt_rafem.bmi:Rafem",]}
 
+
+def read(filename):
+    with open(filename, "r", encoding="utf-8") as fp:
+        return fp.read()
+
+
+long_description = u"\n\n".join(
+    [read("README.rst"), read("CREDITS.rst"), read("CHANGES.rst")]
+)
+
+
 setup(
     name="pymt_rafem",
     author="csdms",
     author_email="csdms@colorado.edu",
     description="PyMT plugin for rafem",
-    long_description=open("README.rst", encoding="utf-8").read(),
-    version="0.2",
+    long_description=long_description,
+    version="0.3.dev0",
     url="https://github.com/pymt-lab/pymt_rafem",
     classifiers=[
         "Development Status :: 4 - Beta",

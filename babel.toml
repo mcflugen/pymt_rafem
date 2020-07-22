@@ -20,5 +20,4 @@ language = "python"
 [plugin]
 name = "rafem"
 requirements = ["rafem"]
-version = "0.2"
 
